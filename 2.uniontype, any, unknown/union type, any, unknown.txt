@@ -1,0 +1,79 @@
+union type, any, unknown
+
+union type
+변수를 선언시 string 또는 number 타입의 값이 들어올 수도 있어서 두 타입 이상을 같이 정의를 하고 싶을 때 사용을 한다.
+| (or연산자)를 사용하여 타입을 설정하며 이것을 union type이라고 한다.
+
+let 이름: string | number = 'jun';
+let 나이: (string | number) = 30;
+위에 같이 할당하는 순간 타입은 string 또는 number 중 하나로 변한다. 괄호를 사용해도 되고 안해도 된다.
+
+let 배열: number[] = [1,'2',3]
+let 객체: {[key:string]: string} = {name: 'jun', age:30, gender: 'man'}
+위에 같이 코드를 작성하면 에러가 발생한다. 배열같은 경우 타입이 number이며, 객체는 타입이 string이어서 에러가 발생한다.
+이럴 경우 union type을 사용하여 대처할 수 있다.
+
+let 배열: (number | string)[] = [1,'2',3]
+let 객체: {[key:string]: (string | number)} = {name: 'jun', age:30, gender: 'man'}
+
+참고로 변수에 정의된 union type은 할당과 동시에 or 역할이 사라진다.
+array, object에 정의된 union type은 or연산자가 유지된다.
+
+any type
+아무 타입이나 집어넣을 수 있는 타입이다. 쉽게 말하면 타입이라는 개념을 없앤다고 보면 된다.
+let 이름: any = 'jun';
+이름 = 123;
+이름 = boolean;
+이름 = [];
+any 타입은 타입의 개념을 없애버리기 때문에 위와 같이 작성을 하여도 에러가 발생을 하지 않는다.
+이러한 점 때문에 any 타입이 사용하기 편하다고 막 사용하면 안된다.
+타입관련 버그가 발생할 경우 왜 발생하였는지 추적하기가 어려워 대처하기가 힘들어진다.
+타입개념을 사용안하면 굳이 타입스크립트를 사용하는 이유가 없다.
+비상시에 변수 타입체크 해제기능 용도로만 사용하는게 좋다.
+
+unknown type
+any type의 단점이 치명적이다 보니 unknown type을 사용한다.
+any와 기능은 거의 똑같다 할 정도로 비슷하다.
+let 이름: any = 'jun';
+이름 = 123;
+이름 = boolean;
+이름 = [];
+
+any처럼 위와 같이 작성하여도 에러가 발생하지 않는다. 그렇기에 아직 어떤 타입이 들어올지 모르는 경우 사용하면 좋다.
+중요한 특징은 unknown 타입에 다른 타입의 값을 모두 입력할 수 있으며, 값을 모두 입력 후에 타입은 unknown type으로 되어있다.
+물론 unknown type에 다른 타입을 가진 변수에 집어 넣으려고 하면 에러가 발생한다.
+
+let 이름: unknown;
+
+let 변수1: string = 이름;
+let 변수2: boolean = 이름;
+let 변수3: number = 이름;
+-----------error-------------------
+
+let 이름: unknown;
+이름[0];
+이름 - 1;
+이름.data;
+
+-----------error-------------------
+
+타입 스크립트는 정확하고 확실한 걸 좋아하기에 확실하지 않은 타입에 뻴셈을 해주고 그런거 싫어한다.
+숫자가 아닌 것을 뺄셈을 할 수 없기 때문이다.
+그렇기에 타입 스크립트에서 뺄셈은 number type만 할 수 있고 .data 이런건 object type만 할 수 있다라고 미리 정의되어 있다.
+
+결론은 아직 어떤 type의 값을 집어넣을지 모르겠는데 약간의 안전성을 원한다면 unknown type을 사용하는 것이 좋다.
+그렇지만 실제로 코드를 짜면서 any, unknown을 사용하는 경우는 별로 없다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
