@@ -77,3 +77,6 @@ let project: {
 }
 
 console.log(project);
+
+
+let myAge : { age : number } = { age : 30 }
