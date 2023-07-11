@@ -1,0 +1,35 @@
+Type 변수설정 & readonly
+
+타입 정의가 너무 길면 Type Aliases
+코드를 입력하다 보면 타입을 길게 나열하게 되는 경우가 있다. 이럴경우 코드가 보기 싫어지고 또는 타입을 다시 사용하게 되는 경우 다시 타입을 길게 나열하는 하드코딩을 하게 되는 경우가 있다.
+이럴 경우 새로운 타입을 정의하여 사용하는 방법이 있는데 type이라는 키워드를 사용하면 된다. 이것을 type alias 라고 한다.
+type alias는 interface와 유사하다.
+type 정의할타입명 = 타입종류
+타입을 변수처럼 만들어서 사용하는 alias문법이다. 첫 이니셜을 대문자로 사용하는게 관습적이지만 변수와의 차이점을 두기 위해 NumType처럼 Type을 입력해 구분해서 사용하면 좋다.
+object 타입도 저장이 가능하며, object에 지정한 타입의 경우 합치기도 가능하다.
+&연산자를 사용하여 object안의 속성을 합칠 수가 있다.
+
+type PositionX = { x: number };
+type PositionY = { y: number };
+type XandY = PositionX & PositionY;
+let 좌표 :XandY = {x:10,y:20}
+
+이것을 extend한다라고 한다.
+
+type은 const로 변수를 선언하는 것처럼 한번 타입을 정의하면 그 타입은 재정의를 할 수가 없다.
+
+
+readonly
+const를 사용하여 변수를 선언을 하게되는 경우 그 변수값은 재할당시 에러가 발생하기 때문에 바꿀 수가 없다.
+하지만 const를 이용하여 object를 만들 경우 object 내부의 값을 변경할 수가 있다.
+const는 재할당만 막아줄 뿐 object 내부의 속성을 바꾸는 것에는 전혀 관여를 하지 않는데 이 때, object의 속성을 바꾸지 않게 막을 때 타입스크립트 문법을 사용하면 된다. 그게 readonly이다.
+
+type Girlfiriend = {
+  readonly name: string
+}
+
+const girlfriend: Girlfiriend = {
+  name: 'gwen'
+}
+
+girlfriend.name = 'MJ'
